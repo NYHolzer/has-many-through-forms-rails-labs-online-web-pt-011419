@@ -1,4 +1,5 @@
-<%= form_for(@post) do |f|%>
+
+<%= form_for post do |f|%>
     <p>
         <%=f.label :title%>
         <%=f.text_field :title%>
@@ -6,10 +7,11 @@
 
     <p>
         <%=f.label :content%>
-        <%=f.text_field :content%>
+        <%=f.text_area :content%>
     </p>
 
-    <p>
+    <p> 
+        Choose a category:
         <%=f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b|%>
             <p><%=b.label%>
                <%=b.check_box%> 
@@ -17,7 +19,11 @@
         <% end %>
     </p>
 
-    <input type="text" id="post_categories_attributes_0_name" name="post[categories_attributes][0][name]"/>
+    Or Create a New Category:
+    <%=f.fields_for :categories, post.categories.build do |cat| %>
+        <%= cat.text_field :name%>
+    <% end %>
 
+    <br/>
     <%=f.submit%>
 <% end %>

@@ -1,9 +1,16 @@
-<h1><%= @post.title%> </h1>
-<p><%= @post.content%> </p>
+<h1>Title: <%= @post.title%> </h1>
+<p>Content:<%= @post.content%> </p>
 
-Categories: <br/>
+<%= form_for @post.comments.build do |f|%>
+    <%= f.hidden_field :post_id, value: @post.id%>
+    Leave a Comment: <%= f.text_field :content%>
+    <%= f.submit%>
+<% end %>
+
+<br/>
+Comments: <br/>
 <ul>
-    <%@post.categories.each do |c|%>
-    <li><%=c.name%>
+    <%@post.comments.each do |c|%>
+    <li><%=c.content%></li>
     <% end %>
 </ul>
